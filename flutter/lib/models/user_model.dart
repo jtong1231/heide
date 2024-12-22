@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:encrypt/encrypt.dart';
+import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hbb/common/hbbs/hbbs.dart';
@@ -33,8 +33,8 @@ class UserModel {
   }
   
   String encryptMessage(String message, String keyString) {
-  final key = Key.fromBase64(keyString);
-  final iv = IV.fromLength(16); // 或者使用固定的 IV
+  final key = encrypt.Key.fromBase64(keyString);
+  final iv = encrypt.IV.fromLength(16); // 或者使用固定的 IV
   final encrypter = Encrypter(AES(key));
 
   // 加密
