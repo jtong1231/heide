@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:crypto' show sha256;
- 
+import 'package:encrypt/encrypt.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hbb/common/hbbs/hbbs.dart';
@@ -33,12 +32,16 @@ class UserModel {
     });
   }
   
-  String generateHash(String data) {
-    // 使用SHA256进行哈希加密
-    final bytes = utf8.encode(data); // 将字符串转换为字节
-    final hashBytes = sha256.convert(bytes); // 计算哈希值
-    return hashBytes.toString();
-  }
+  String encryptMessage(String message, String keyString) {
+  final key = Key.fromBase64(keyString);
+  final iv = IV.fromLength(16); // 或者使用固定的 IV
+  final encrypter = Encrypter(AES(key));
+
+  // 加密
+  final encrypted = encrypter.encrypt(message, iv: iv);
+  return encrypted.base64; // 返回 base64 编码
+}
+
   
   void refreshCurrentUser() async {
     if (bind.isDisableAccount()) return;
