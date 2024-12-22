@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:encrypt/encrypt.dart' as encrypt;
+import 'package:crypto/crypto.dart';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hbb/common/hbbs/hbbs.dart';
@@ -31,17 +33,30 @@ class UserModel {
       networkError.value = '';
     });
   }
-  
-  String encryptMessage(String message, String keyString) {
+//md5
+  String generateMd5(String input) {
+  return md5.convert(utf8.encode(input)).toString();
+ }
+  //AES 加密
+  String encryptMessage(String message, String keyString,String IvString) {
   final key = encrypt.Key.fromBase64(keyString);
-  final iv = encrypt.IV.fromLength(16); // 或者使用固定的 IV
+  final iv = encrypt.Key.fromBase64(IvString);//encrypt.IV.fromLength(16); // 或者使用固定的 IV
   final encrypter = encrypt.Encrypter(encrypt.AES(key));
 
   // 加密
   final encrypted = encrypter.encrypt(message, iv: iv);
   return encrypted.base64; // 返回 base64 编码
 }
+  //AES 解密
+  String decryptMessage(String message, String keyString,String IvString) {
+  final key = encrypt.Key.fromBase64(keyString);
+  final iv = encrypt.Key.fromBase64(IvString);//encrypt.IV.fromLength(16); // 或者使用固定的 IV
+  final encrypter = encrypt.Encrypter(encrypt.AES(key));
 
+  // 解密base64
+  final decrypted = encrypter.decrypt64(message, iv: iv);
+  return decrypted; // 返回 明文
+}
   
   void refreshCurrentUser() async {
     if (bind.isDisableAccount()) return;
