@@ -40,7 +40,7 @@ class UserModel {
   //AES 加密
   String encryptMessage(String message, String keyString,String IvString) {
   final key = encrypt.Key.fromBase64(keyString);
-  final iv = encrypt.Key.fromBase64(IvString);//encrypt.IV.fromLength(16); // 或者使用固定的 IV
+  final iv = encrypt.IV.fromBase64(IvString);//encrypt.IV.fromLength(16); // 或者使用固定的 IV
   final encrypter = encrypt.Encrypter(encrypt.AES(key));
 
   // 加密
@@ -50,7 +50,7 @@ class UserModel {
   //AES 解密
   String decryptMessage(String message, String keyString,String IvString) {
   final key = encrypt.Key.fromBase64(keyString);
-  final iv = encrypt.Key.fromBase64(IvString);//encrypt.IV.fromLength(16); // 或者使用固定的 IV
+  final iv = encrypt.IV.fromBase64(IvString);//encrypt.IV.fromLength(16); // 或者使用固定的 IV
   final encrypter = encrypt.Encrypter(encrypt.AES(key));
 
   // 解密base64
