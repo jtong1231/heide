@@ -35,7 +35,7 @@ class UserModel {
   String encryptMessage(String message, String keyString) {
   final key = encrypt.Key.fromBase64(keyString);
   final iv = encrypt.IV.fromLength(16); // 或者使用固定的 IV
-  final encrypter = encrypt.Encrypter(AES(key));
+  final encrypter = encrypt.Encrypter(encrypt.AES(key));
 
   // 加密
   final encrypted = encrypter.encrypt(message, iv: iv);
