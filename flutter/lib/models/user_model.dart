@@ -246,8 +246,8 @@ class UserModel {
     
   var data = messageid + '|' + messageuuid + '|' + messageusername + '|' + messagepassword + '|' + timestamp;
   final sign = generateMd5(data);
-  final secretKey ='ODc2NzU4NDcyOTkyMDg3NDExMjM3NDQzOTQ1NzQ1NDQ=';
-  final secretIv ='NzY0ODg0OTQ3MjkyOTQ3Mw==' ;
+  final secretKey ='MDEyMzQ1Njc4OWFiY2RlZg==';
+  final secretIv ='YWJjZGVmOTg3NjU0MzIxMA==' ;
   data = encryptMessage(data, secretKey,secretIv); //AES 或 RSA 加密 data，根据后台设定使用对应的加密函数
 
     final bodys = {
