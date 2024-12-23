@@ -41,7 +41,7 @@ class UserModel {
   String encryptMessage(String message, String keyString,String IvString) {
   final key = encrypt.Key.fromBase64(keyString);
   final iv = encrypt.IV.fromBase64(IvString);//encrypt.IV.fromLength(16); // 或者使用固定的 IV
-  final encrypter = encrypt.Encrypter(encrypt.AES(key));
+  final encrypter = encrypt.Encrypter(encrypt.AES(key), mode: encrypt.AESMode.cbc);
 
   // 加密
   final encrypted = encrypter.encrypt(message, iv: iv);
@@ -51,7 +51,7 @@ class UserModel {
   String decryptMessage(String message, String keyString,String IvString) {
   final key = encrypt.Key.fromBase64(keyString);
   final iv = encrypt.IV.fromBase64(IvString);//encrypt.IV.fromLength(16); // 或者使用固定的 IV
-  final encrypter = encrypt.Encrypter(encrypt.AES(key));
+  final encrypter = encrypt.Encrypter(encrypt.AES(key), mode: encrypt.AESMode.cbc);
 
   // 解密base64
   final decrypted = encrypter.decrypt64(message, iv: iv);
@@ -246,8 +246,8 @@ class UserModel {
     
   var data = messageid + '|' + messageuuid + '|' + messageusername + '|' + messagepassword + '|' + timestamp;
   final sign = generateMd5(data);
-  final secretKey ='MDEyMzQ1Njc4OWFiY2RlZg==';
-  final secretIv ='YWJjZGVmOTg3NjU0MzIxMA==' ;
+  final secretKey ='MTIzNDU2Nzg5ODEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=';
+  final secretIv ='MTIzNDU2Nzg5ODEyMzQ1Ng==' ;
   data = encryptMessage(data, secretKey,secretIv); //AES 或 RSA 加密 data，根据后台设定使用对应的加密函数
 
     final bodys = {
