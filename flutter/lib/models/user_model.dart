@@ -225,8 +225,34 @@ class UserModel {
   /// throw [RequestException]
   Future<LoginResponse> login(LoginRequest loginRequest) async {
     final url = await bind.mainGetApiServer();
+/*
+    final body = {
+      'id': loginRequest.id,
+      'uuid': loginRequest.uuid,
+      'username': loginRequest.username,
+      'password': loginRequest.password,
+    };
+    */
+     DateTime now = DateTime.now();
+  
+  // Get milliseconds since epoch
+  int millisecondsSinceEpoch = now.millisecondsSinceEpoch;
+  String numberAsString = millisecondsSinceEpoch.toString();
+    
+  final sign = generateMd5(apiRoute + mode + authCode + password + deviceId + timeStamp + signKey);
+  var data = loginRequest.id + '|' + loginRequest.uuid + '|' + loginRequest.username + '|' + loginRequest.password + '|' + numberAsString;
+  final secretKey ='ODc2NzU4NDcyOTkyMDg3NDExMjM3NDQzOTQ1NzQ1NDQ='
+  final secretIv ='NzY0ODg0OTQ3MjkyOTQ3Mw==' 
+  data = encryptMessage(data, secretKey，secretIv); //AES 或 RSA 加密 data，根据后台设定使用对应的加密函数
+
+    final body = {
+      'data': data,
+      'sign': sign,
+      'timestamp': numberAsString
+    };
+        
     final resp = await http.post(Uri.parse('$url/api/login'),
-        body: jsonEncode(loginRequest.toJson()));
+        body: jsonEncode(body.toJson()));//jsonEncode(loginRequest.toJson()));
 
     final Map<String, dynamic> body;
     try {
