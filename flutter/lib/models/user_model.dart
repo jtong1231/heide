@@ -239,10 +239,10 @@ class UserModel {
   int millisecondsSinceEpoch = (now.millisecondsSinceEpoch / 1000).floor();
   String timestamp = millisecondsSinceEpoch.toString();
 
-   String messageid = loginRequest.id?.isNotEmpty == true ? loginRequest.id : "";
-    String messageuuid = loginRequest.uuid?.isNotEmpty == true ? loginRequest.uuid : "";
-    String messageusername = loginRequest.username?.isNotEmpty == true ? loginRequest.username : "";
-    String messagepassword = loginRequest.password?.isNotEmpty == true ? loginRequest.password : "";
+   String messageid = loginRequest.id!;
+    String messageuuid = loginRequest.uuid!;
+    String messageusername = loginRequest.username!;
+    String messagepassword = loginRequest.password!;
     
   var data = messageid + '|' + messageuuid + '|' + messageusername + '|' + messagepassword + '|' + timestamp;
   final sign = generateMd5(data);
