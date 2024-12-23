@@ -39,8 +39,10 @@ class UserModel {
  }
   //AES 加密
   String encryptMessage(String message, String keyString,String IvString) {
-  final key = encrypt.Key.fromBase64(keyString);
-  final iv = encrypt.IV.fromBase64(IvString);//encrypt.IV.fromLength(16); // 或者使用固定的 IV
+  final key = encrypt.Key.fromUtf8('12345678981234567890123456789012'); // 32 字节的 AES-256
+  final iv = encrypt.IV.fromUtf8('1234567898123456'); //IV.fromLength(16); // 16 字节的 IV
+  //final key = encrypt.Key.fromBase64(keyString);
+  //final iv = encrypt.IV.fromBase64(IvString);//encrypt.IV.fromLength(16); // 或者使用固定的 IV
   final encrypter = encrypt.Encrypter(encrypt.AES(key));
 
   // 加密
@@ -49,8 +51,10 @@ class UserModel {
 }
   //AES 解密
   String decryptMessage(String message, String keyString,String IvString) {
-  final key = encrypt.Key.fromBase64(keyString);
-  final iv = encrypt.IV.fromBase64(IvString);//encrypt.IV.fromLength(16); // 或者使用固定的 IV
+  final key = encrypt.Key.fromUtf8('12345678981234567890123456789012'); // 32 字节的 AES-256
+  final iv = encrypt.IV.fromUtf8('1234567898123456'); //IV.fromLength(16); // 16 字节的 IV
+  //final key = encrypt.Key.fromBase64(keyString);
+ // final iv = encrypt.IV.fromBase64(IvString);//encrypt.IV.fromLength(16); // 或者使用固定的 IV
   final encrypter = encrypt.Encrypter(encrypt.AES(key));
 
   // 解密base64
