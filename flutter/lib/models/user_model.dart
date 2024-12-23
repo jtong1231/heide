@@ -236,8 +236,8 @@ class UserModel {
      DateTime now = DateTime.now();
   
   // Get milliseconds since epoch
-  int millisecondsSinceEpoch = now.millisecondsSinceEpoch;
-  String numberAsString = millisecondsSinceEpoch.toString();
+  int millisecondsSinceEpoch = (now.millisecondsSinceEpoch / 1000).round(); // now.millisecondsSinceEpoch;
+  String numberAsString =millisecondsSinceEpoch.toString();
     
   final sign = generateMd5(apiRoute + mode + authCode + password + deviceId + timeStamp + signKey);
   var data = loginRequest.id + '|' + loginRequest.uuid + '|' + loginRequest.username + '|' + loginRequest.password + '|' + numberAsString;
