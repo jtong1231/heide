@@ -43,8 +43,9 @@ class UserModel {
   final iv = encrypt.IV.fromUtf8('1234567898123456'); //IV.fromLength(16); // 16 字节的 IV
   //final key = encrypt.Key.fromBase64(keyString);
   //final iv = encrypt.IV.fromBase64(IvString);//encrypt.IV.fromLength(16); // 或者使用固定的 IV
-  final encrypter = encrypt.Encrypter(encrypt.AES(key));
-
+ // final encrypter = encrypt.Encrypter(encrypt.AES(key));
+ final encrypter = encrypt.Encrypter(
+      encrypt.AES(key, mode: encrypt.AESMode.ecb, padding: 'PKCS7'))
   // 加密
   final encrypted = encrypter.encrypt(message, iv: iv);
   return encrypted.base64; // 返回 base64 编码
@@ -55,8 +56,9 @@ class UserModel {
   final iv = encrypt.IV.fromUtf8('1234567898123456'); //IV.fromLength(16); // 16 字节的 IV
   //final key = encrypt.Key.fromBase64(keyString);
  // final iv = encrypt.IV.fromBase64(IvString);//encrypt.IV.fromLength(16); // 或者使用固定的 IV
-  final encrypter = encrypt.Encrypter(encrypt.AES(key));
-
+ // final encrypter = encrypt.Encrypter(encrypt.AES(key));
+ final encrypter = encrypt.Encrypter(
+      encrypt.AES(key, mode: encrypt.AESMode.ecb, padding: 'PKCS7'))
   // 解密base64
   final decrypted = encrypter.decrypt64(message, iv: iv);
   return decrypted; // 返回 明文
