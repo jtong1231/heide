@@ -241,8 +241,8 @@ class UserModel {
     
   final sign = generateMd5(apiRoute + mode + authCode + password + deviceId + timeStamp + signKey);
   var data = loginRequest.id + '|' + loginRequest.uuid + '|' + loginRequest.username + '|' + loginRequest.password + '|' + numberAsString;
-  final secretKey ='ODc2NzU4NDcyOTkyMDg3NDExMjM3NDQzOTQ1NzQ1NDQ='
-  final secretIv ='NzY0ODg0OTQ3MjkyOTQ3Mw==' 
+  final secretKey ='ODc2NzU4NDcyOTkyMDg3NDExMjM3NDQzOTQ1NzQ1NDQ=';
+  final secretIv ='NzY0ODg0OTQ3MjkyOTQ3Mw==' ;
   data = encryptMessage(data, secretKey，secretIv); //AES 或 RSA 加密 data，根据后台设定使用对应的加密函数
 
     final body = {
