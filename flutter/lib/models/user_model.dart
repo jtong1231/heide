@@ -41,7 +41,7 @@ class UserModel {
   String encryptMessage(String message, String keyString,String IvString) {
   final key = encrypt.Key.fromBase64(keyString);
   final iv = encrypt.IV.fromBase64(IvString);//encrypt.IV.fromLength(16); // 或者使用固定的 IV
-  final encrypter = encrypt.Encrypter(encrypt.AES(key), mode: encrypt.AESMode.cbc);
+  final encrypter = encrypt.Encrypter(encrypt.AES(key));
 
   // 加密
   final encrypted = encrypter.encrypt(message, iv: iv);
@@ -51,7 +51,7 @@ class UserModel {
   String decryptMessage(String message, String keyString,String IvString) {
   final key = encrypt.Key.fromBase64(keyString);
   final iv = encrypt.IV.fromBase64(IvString);//encrypt.IV.fromLength(16); // 或者使用固定的 IV
-  final encrypter = encrypt.Encrypter(encrypt.AES(key), mode: encrypt.AESMode.cbc);
+  final encrypter = encrypt.Encrypter(encrypt.AES(key));
 
   // 解密base64
   final decrypted = encrypter.decrypt64(message, iv: iv);
