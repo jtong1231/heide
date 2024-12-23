@@ -245,14 +245,14 @@ class UserModel {
   final secretIv ='NzY0ODg0OTQ3MjkyOTQ3Mw==' ;
   data = encryptMessage(data, secretKey,secretIv); //AES 或 RSA 加密 data，根据后台设定使用对应的加密函数
 
-    final body = {
+    final bodys = {
       'data': data,
       'sign': sign,
       'timestamp': timestamp
     };
         
     final resp = await http.post(Uri.parse('$url/api/login'),
-        body: jsonEncode(body.toJson()));//jsonEncode(loginRequest.toJson()));
+        body: jsonEncode(bodys.toJson()));//jsonEncode(loginRequest.toJson()));
 
     final Map<String, dynamic> body;
     try {
