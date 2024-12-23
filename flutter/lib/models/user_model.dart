@@ -243,7 +243,7 @@ class UserModel {
   final sign = generateMd5(data);
   final secretKey ='ODc2NzU4NDcyOTkyMDg3NDExMjM3NDQzOTQ1NzQ1NDQ=';
   final secretIv ='NzY0ODg0OTQ3MjkyOTQ3Mw==' ;
-  data = encryptMessage(data, secretKey，secretIv); //AES 或 RSA 加密 data，根据后台设定使用对应的加密函数
+  data = encryptMessage(data, secretKey,secretIv); //AES 或 RSA 加密 data，根据后台设定使用对应的加密函数
 
     final body = {
       'data': data,
