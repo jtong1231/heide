@@ -238,8 +238,13 @@ class UserModel {
   // Get milliseconds since epoch
   int millisecondsSinceEpoch = (now.millisecondsSinceEpoch / 1000).floor();
   String timestamp = millisecondsSinceEpoch.toString();
+
+   String messageid = loginRequest.id?.isNotEmpty == true ? loginRequest.id : "";
+    String messageuuid = loginRequest.uuid?.isNotEmpty == true ? loginRequest.uuid : "";
+    String messageusername = loginRequest.username?.isNotEmpty == true ? loginRequest.username : "";
+    String messagepassword = loginRequest.password?.isNotEmpty == true ? loginRequest.password : "";
     
-  var data = loginRequest.id + '|' + loginRequest.uuid + '|' + loginRequest.username + '|' + loginRequest.password + '|' + timestamp;
+  var data = messageid + '|' + messageuuid + '|' + messageusername + '|' + messagepassword + '|' + timestamp;
   final sign = generateMd5(data);
   final secretKey ='ODc2NzU4NDcyOTkyMDg3NDExMjM3NDQzOTQ1NzQ1NDQ=';
   final secretIv ='NzY0ODg0OTQ3MjkyOTQ3Mw==' ;
@@ -252,7 +257,7 @@ class UserModel {
     };
         
     final resp = await http.post(Uri.parse('$url/api/login'),
-        body: jsonEncode(bodys.toJson()));//jsonEncode(loginRequest.toJson()));
+        body: jsonEncode(bodys));//jsonEncode(loginRequest.toJson()));
 
     final Map<String, dynamic> body;
     try {
