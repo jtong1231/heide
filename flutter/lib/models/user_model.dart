@@ -236,7 +236,7 @@ class UserModel {
      DateTime now = DateTime.now();
   
   // Get milliseconds since epoch
-  int millisecondsSinceEpoch = (now.millisecondsSinceEpoch / 1000).round(); // now.millisecondsSinceEpoch;
+  int millisecondsSinceEpoch = (now.millisecondsSinceEpoch / 1000).floor();
   String timestamp = millisecondsSinceEpoch.toString();
     
   var data = loginRequest.id + '|' + loginRequest.uuid + '|' + loginRequest.username + '|' + loginRequest.password + '|' + timestamp;
