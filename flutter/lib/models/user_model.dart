@@ -162,9 +162,9 @@ class UserModel {
   int millisecondsSinceEpoch = (now.millisecondsSinceEpoch / 1000).floor();
   String timestamp = millisecondsSinceEpoch.toString();
    
-  string messageid=await bind.mainGetMyId();
-  string messageuuid=await bind.mainGetUuid();
-    string messageusername=gFFI.userModel.userName.value;
+  String messageid=await bind.mainGetMyId();
+  String messageuuid=await bind.mainGetUuid();
+    String messageusername=gFFI.userModel.userName.value;
     var data = messageid + '|' + messageuuid + '|' + messageusername + '|' + timestamp;
   final sign = generateMd5(data);
   final secretKey ='MTIzNDU2Nzg5ODEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=';
