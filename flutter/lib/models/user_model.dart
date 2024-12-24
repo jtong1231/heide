@@ -259,10 +259,10 @@ class UserModel {
   final secretKey ='MTIzNDU2Nzg5ODEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=';
   final secretIv ='';//'MTIzNDU2Nzg5ODEyMzQ1Ng==' ;
   final data2 = encryptMessage(data, secretKey,secretIv); //AES 或 RSA 加密 data，根据后台设定使用对应的加密函数
-  data = decryptMessage(data2, secretKey,secretIv);
+  //data = decryptMessage(data2, secretKey,secretIv);
     final bodys = {
       'data': data2,
-      'sign': data,
+      'sign': sign,
       'timestamp': timestamp
     };
         
@@ -271,7 +271,10 @@ class UserModel {
 
     final Map<String, dynamic> body;
     try {
-      body = jsonDecode(utf8.decode(resp.bodyBytes));
+       var des = utf8.decode(resp.bodyBytes);       
+       data = decryptMessage(des, secretKey,secretIv);
+       body = jsonDecode(data);
+     // body = jsonDecode(utf8.decode(resp.bodyBytes));
     } catch (e) {
       debugPrint("login: jsonDecode resp body failed: ${e.toString()}");
       if (resp.statusCode != 200) {
