@@ -194,8 +194,8 @@ class UserModel {
       return false;
     }
     var des = utf8.decode(response.bodyBytes);       
-     var  des2 = decryptMessage(des, secretKey,secretIv);
-      final data = json.decode(des2);
+    var des2 = decryptMessage(des, secretKey,secretIv);
+    final data = json.decode(des2);
    // final data = json.decode(utf8.decode(response.bodyBytes));
     final error = data['error'];
     if (error != null) {
@@ -204,8 +204,14 @@ class UserModel {
    //把日期写到名字里 显示在前台
     if(data['name']!=null && gFFI.userModel.userName.value==data['name'])
     {   
-      final expdate = data['expdate'];
+      final expdatess = data['expdate'];
       if (expdate != null) {
+          DateTime dateTime1 = DateTime.parse(expdatess);
+          // 过期时间
+          if (dateTime1.isBefore(now)) {
+            return false;
+            // print("$dateString1 早于 $dateString2");
+          } 
          gFFI.userModel.userLogin.value = "用户名:" + data['name'] + ",有效期:" + data['expdate'];
          //gFFI.userModel.userName.value = data['name'] + "_有效期:" + data['expdate'];
       }
@@ -217,7 +223,7 @@ class UserModel {
     }
 
    // BotToast.showText(contentColor: Colors.red, text: '用户名 ${data['name']}');
-   
+   /*
     //把日期写到名字里 显示在前台
     if(data['name']!=null && gFFI.userModel.userName.value==data['name'])
     {   
@@ -237,7 +243,7 @@ class UserModel {
     else
     {
        return false;
-    }
+    }*/
   }
   
   _parseAndUpdateUser(UserPayload user) {
