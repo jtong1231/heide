@@ -205,7 +205,7 @@ class UserModel {
     if(data['name']!=null && gFFI.userModel.userName.value==data['name'])
     {   
       final expdatess = data['expdate'];
-      if (expdate != null) {
+      if (expdatess != null) {
           DateTime dateTime1 = DateTime.parse(expdatess);
           // 过期时间
           if (dateTime1.isBefore(now)) {
