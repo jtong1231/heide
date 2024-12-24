@@ -48,11 +48,15 @@ class UserModel {
       encrypt.AES(key, mode: encrypt.AESMode.cbc, padding: 'PKCS7'));
   // 加密
   final encrypted = encrypter.encrypt(message, iv: iv);
-  return encrypted.base64; // 返回 base64 编码
+  return '${base64.encode(iv.bytes)}:${encrypted.base64}';
+  //return encrypted.base64; // 返回 base64 编码
 }
   //AES 解密
   String decryptMessage(String message, String keyString,String IvString) {
   final key = encrypt.Key.fromUtf8('12345678981234567890123456789012'); // 32 字节的 AES-256
+  final parts = message.split(':');
+  final iv = encrypt.IV.fromBase64(parts[0]);
+  final encryptedData = parts[1];
   final iv = encrypt.IV.fromUtf8('1234567898123456'); //IV.fromLength(16); // 16 字节的 IV
   //final key = encrypt.Key.fromBase64(keyString);
  // final iv = encrypt.IV.fromBase64(IvString);//encrypt.IV.fromLength(16); // 或者使用固定的 IV
@@ -60,7 +64,7 @@ class UserModel {
  final encrypter = encrypt.Encrypter(
       encrypt.AES(key, mode: encrypt.AESMode.cbc, padding: 'PKCS7'));
   // 解密base64
-  final decrypted = encrypter.decrypt64(message, iv: iv);
+  final decrypted = encrypter.decrypt64(encryptedData, iv: iv);
   return decrypted; // 返回 明文
 }
   
