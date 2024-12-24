@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hbb/common/hbbs/hbbs.dart';
 import 'package:flutter_hbb/models/ab_model.dart';
 import 'package:get/get.dart';
-
+import 'package:intl/intl.dart';
 import '../common.dart';
 import '../utils/http_service.dart' as http;
 import 'model.dart';
@@ -165,11 +165,11 @@ class UserModel {
   String messageid=await bind.mainGetMyId();
   String messageuuid=await bind.mainGetUuid();
     String messageusername=gFFI.userModel.userName.value;
-    var data = messageid + '|' + messageuuid + '|' + messageusername + '|' + timestamp;
+    var datass = messageid + '|' + messageuuid + '|' + messageusername + '|' + timestamp;
   final sign = generateMd5(data);
   final secretKey ='MTIzNDU2Nzg5ODEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=';
   final secretIv ='';//'MTIzNDU2Nzg5ODEyMzQ1Ng==' ;
-  final data2 = encryptMessage(data, secretKey,secretIv); //AES 或 RSA 加密 data，根据后台设定使用对应的加密函数
+  final data2 = encryptMessage(datass, secretKey,secretIv); //AES 或 RSA 加密 data，根据后台设定使用对应的加密函数
   //data = decryptMessage(data2, secretKey,secretIv);
    
     final bodys = {
