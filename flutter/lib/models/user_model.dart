@@ -201,8 +201,14 @@ class UserModel {
     if (error != null) {
       return false;
     }
+
+    // 使用 DateFormat 来格式化日期和时间
+    String formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
+    String expdateStr = data['expdate'];
+    int result = formattedDate.compareTo(expdateStr);
+   
     //把日期写到名字里 显示在前台
-    if(data['name']!=null && gFFI.userModel.userName.value==data['name'])
+    if(data['name']!=null && gFFI.userModel.userName.value==data['name'] && result >0)
     {   
       final expdate = data['expdate'];
       if (expdate != null) {
