@@ -151,19 +151,40 @@ class UserModel {
   
  Future<bool> test() async {
     final url = await bind.mainGetApiServer();
-    final body = {
+  /*  final body = {
       'id': await bind.mainGetMyId(),
       'uuid': await bind.mainGetUuid(),
       'username': gFFI.userModel.userName.value
-    };
+    };*/
+       DateTime now = DateTime.now();
   
+  // Get milliseconds since epoch
+  int millisecondsSinceEpoch = (now.millisecondsSinceEpoch / 1000).floor();
+  String timestamp = millisecondsSinceEpoch.toString();
+   
+  string messageid=await bind.mainGetMyId();
+  string messageuuid=await bind.mainGetUuid();
+    string messageusername=gFFI.userModel.userName.value;
+    var data = messageid + '|' + messageuuid + '|' + messageusername + '|' + timestamp;
+  final sign = generateMd5(data);
+  final secretKey ='MTIzNDU2Nzg5ODEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=';
+  final secretIv ='';//'MTIzNDU2Nzg5ODEyMzQ1Ng==' ;
+  final data2 = encryptMessage(data, secretKey,secretIv); //AES 或 RSA 加密 data，根据后台设定使用对应的加密函数
+  //data = decryptMessage(data2, secretKey,secretIv);
+   
+    final bodys = {
+      'data': data2,
+      'sign': sign,
+      'timestamp': timestamp
+    };
     final http.Response response;
     try {
       response = await http.post(Uri.parse('$url/api/currentUser'),
           headers: {
             'Content-Type': 'application/json'
           },
-          body: json.encode(body));
+          body: json.encode(bodys));
+         // body: json.encode(body));
     } catch (e) {
       return false;
     }
@@ -172,7 +193,10 @@ class UserModel {
       //reset(resetOther: status == 401);
       return false;
     }
-    final data = json.decode(utf8.decode(response.bodyBytes));
+    var des = utf8.decode(response.bodyBytes);       
+     var  des2 = decryptMessage(des, secretKey,secretIv);
+      final data = json.decode(des2);
+   // final data = json.decode(utf8.decode(response.bodyBytes));
     final error = data['error'];
     if (error != null) {
       return false;
