@@ -216,7 +216,7 @@ class UserModel {
        return false;
     }
 
-    BotToast.showText(contentColor: Colors.red, text: '用户名 ${data['name']}');
+   // BotToast.showText(contentColor: Colors.red, text: '用户名 ${data['name']}');
    
     //把日期写到名字里 显示在前台
     if(data['name']!=null && gFFI.userModel.userName.value==data['name'])
