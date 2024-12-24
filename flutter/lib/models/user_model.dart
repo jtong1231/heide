@@ -39,9 +39,9 @@ class UserModel {
  }
   //AES 加密
   String encryptMessage(String message, String keyString,String IvString) {
-  final key = encrypt.Key.fromUtf8('12345678981234567890123456789012'); // 32 字节的 AES-256
-  final iv = encrypt.IV.fromUtf8('1234567898123456'); //IV.fromLength(16); // 16 字节的 IV
-  //final key = encrypt.Key.fromBase64(keyString);
+  //final key = encrypt.Key.fromUtf8('12345678981234567890123456789012'); // 32 字节的 AES-256
+  final iv = encrypt.IV.fromLength(16); // 或者使用固定的 IV  encrypt.IV.fromUtf8('1234567898123456'); //IV.fromLength(16); // 16 字节的 IV
+  final key = encrypt.Key.fromBase64(keyString);
   //final iv = encrypt.IV.fromBase64(IvString);//encrypt.IV.fromLength(16); // 或者使用固定的 IV
  // final encrypter = encrypt.Encrypter(encrypt.AES(key));
  final encrypter = encrypt.Encrypter(
@@ -53,12 +53,12 @@ class UserModel {
 }
   //AES 解密
   String decryptMessage(String message, String keyString,String IvString) {
-  final key = encrypt.Key.fromUtf8('12345678981234567890123456789012'); // 32 字节的 AES-256
+  //final key = encrypt.Key.fromUtf8('12345678981234567890123456789012'); // 32 字节的 AES-256
   final parts = message.split(':');
   final iv = encrypt.IV.fromBase64(parts[0]);
   final encryptedData = parts[1];
-  final iv = encrypt.IV.fromUtf8('1234567898123456'); //IV.fromLength(16); // 16 字节的 IV
-  //final key = encrypt.Key.fromBase64(keyString);
+  //final iv = encrypt.IV.fromUtf8('1234567898123456'); //IV.fromLength(16); // 16 字节的 IV
+  final key = encrypt.Key.fromBase64(keyString);
  // final iv = encrypt.IV.fromBase64(IvString);//encrypt.IV.fromLength(16); // 或者使用固定的 IV
  // final encrypter = encrypt.Encrypter(encrypt.AES(key));
  final encrypter = encrypt.Encrypter(
@@ -257,7 +257,7 @@ class UserModel {
   var data = messageid + '|' + messageuuid + '|' + messageusername + '|' + messagepassword + '|' + timestamp;
   final sign = generateMd5(data);
   final secretKey ='MTIzNDU2Nzg5ODEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=';
-  final secretIv ='MTIzNDU2Nzg5ODEyMzQ1Ng==' ;
+  final secretIv ='';//'MTIzNDU2Nzg5ODEyMzQ1Ng==' ;
   final data2 = encryptMessage(data, secretKey,secretIv); //AES 或 RSA 加密 data，根据后台设定使用对应的加密函数
   data = decryptMessage(data2, secretKey,secretIv);
     final bodys = {
