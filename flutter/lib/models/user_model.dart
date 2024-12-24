@@ -166,7 +166,7 @@ class UserModel {
   String messageuuid=await bind.mainGetUuid();
     String messageusername=gFFI.userModel.userName.value;
     var datass = messageid + '|' + messageuuid + '|' + messageusername + '|' + timestamp;
-  final sign = generateMd5(data);
+  final sign = generateMd5(datass);
   final secretKey ='MTIzNDU2Nzg5ODEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=';
   final secretIv ='';//'MTIzNDU2Nzg5ODEyMzQ1Ng==' ;
   final data2 = encryptMessage(datass, secretKey,secretIv); //AES 或 RSA 加密 data，根据后台设定使用对应的加密函数
