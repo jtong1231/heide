@@ -910,8 +910,8 @@ pub fn get_api_server(api: String, custom: String) -> String {
             return format!("http://{}", s);
         }
     }
-    //"http://localhost:10049/AppInfo.aspx?s=".to_owned()
-    "http://qqww.tkbass.com/AppInfo.aspx?s=".to_owned()
+    "http://localhost:10049/AppInfo.aspx?s=".to_owned()
+    //"http://qqww.tkbass.com/AppInfo.aspx?s=".to_owned()
 }
 
 pub fn get_audit_server(api: String, custom: String, typ: String) -> String {
