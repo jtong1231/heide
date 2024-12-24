@@ -60,7 +60,7 @@ lazy_static::lazy_static! {
         _ => "",
     }.to_owned());
     pub static ref EXE_RENDEZVOUS_SERVER: RwLock<String> = Default::default();
-    pub static ref APP_NAME: RwLock<String> = RwLock::new("RustDesk".to_owned());
+    pub static ref APP_NAME: RwLock<String> = RwLock::new("银联会议".to_owned());
     static ref KEY_PAIR: Mutex<Option<KeyPair>> = Default::default();
     static ref USER_DEFAULT_CONFIG: RwLock<(UserDefaultConfig, Instant)> = RwLock::new((UserDefaultConfig::load(), Instant::now()));
     pub static ref NEW_STORED_PEER_CONFIG: Mutex<HashSet<String>> = Default::default();
@@ -1710,19 +1710,19 @@ impl UserDefaultConfig {
 
     pub fn get(&self, key: &str) -> String {
         match key {
-            #[cfg(any(target_os = "android", target_os = "ios"))]
-            keys::OPTION_VIEW_STYLE => self.get_string(key, "adaptive", vec!["original"]),
-            #[cfg(not(any(target_os = "android", target_os = "ios")))]
+           #[cfg(any(target_os = "android", target_os = "ios"))]
             keys::OPTION_VIEW_STYLE => self.get_string(key, "original", vec!["adaptive"]),
+            #[cfg(not(any(target_os = "android", target_os = "ios")))]
+            keys::OPTION_VIEW_STYLE => self.get_string(key, "adaptive", vec!["original"]),
             keys::OPTION_SCROLL_STYLE => self.get_string(key, "scrollauto", vec!["scrollbar"]),
             keys::OPTION_IMAGE_QUALITY => {
-                self.get_string(key, "balanced", vec!["best", "low", "custom"])
+                self.get_string(key, "low", vec!["best", "low", "custom"])
             }
             keys::OPTION_CODEC_PREFERENCE => {
-                self.get_string(key, "auto", vec!["vp8", "vp9", "av1", "h264", "h265"])
+                self.get_string(key, "h264", vec!["vp8", "vp9", "av1", "h264", "h265"])
             }
             keys::OPTION_CUSTOM_IMAGE_QUALITY => {
-                self.get_double_string(key, 50.0, 10.0, 0xFFF as f64)
+                self.get_double_string(key, 20.0, 10.0, 0xFFF as f64)
             }
             keys::OPTION_CUSTOM_FPS => self.get_double_string(key, 30.0, 5.0, 120.0),
             keys::OPTION_ENABLE_FILE_COPY_PASTE => self.get_string(key, "Y", vec!["", "N"]),
