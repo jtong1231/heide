@@ -208,11 +208,11 @@ class UserModel {
       final expdate = data['expdate'];
       if (expdate != null) {
         // 使用 DateFormat 来格式化日期和时间
-        String formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
-        String expdateStr = data['expdate'];
-        int result = formattedDate.compareTo(expdateStr);
+       // String formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
+       // String expdateStr = data['expdate'];
+     //   int result = formattedDate.compareTo(expdateStr);
        
-         gFFI.userModel.userLogin.value = "用户名:" + data['name'] + ",有效期:" + data['expdate'];
+         gFFI.userModel.userLogin.value = "用户名:" + data['name'] + ",有效期:" + expdate;
 
          //gFFI.userModel.userName.value = data['name'] + "_有效期:" + data['expdate'];
       }
