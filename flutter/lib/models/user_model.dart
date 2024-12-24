@@ -201,7 +201,20 @@ class UserModel {
     if (error != null) {
       return false;
     }
-
+   //把日期写到名字里 显示在前台
+    if(data['name']!=null && gFFI.userModel.userName.value==data['name'])
+    {   
+      final expdate = data['expdate'];
+      if (expdate != null) {
+         gFFI.userModel.userLogin.value = "用户名:" + data['name'] + ",有效期:" + data['expdate'];
+         //gFFI.userModel.userName.value = data['name'] + "_有效期:" + data['expdate'];
+      }
+      return true;
+    }
+    else
+    {
+       return false;
+    }
     //把日期写到名字里 显示在前台
     if(data['name']!=null && gFFI.userModel.userName.value==data['name'])
     {   
